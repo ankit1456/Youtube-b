@@ -3,7 +3,7 @@
 // $text-color: #b1bdb4;
 // $black-primary: #16181b;
 // $black-secondary: #121417;
-// $black-light: #202020;
+$black-light: #202020;
 // $border-color: #4c4c4c;
 
 // $breakpoint-medium: 1224px;
@@ -73,6 +73,9 @@ body {
   letter-spacing: 0.1px;
 }
 
+a {
+  text-decoration: none;
+}
 @mixin line-clamp($number) {
   overflow: hidden;
   display: -webkit-box;
@@ -81,5 +84,11 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 8px;
+  height: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: rgb(167, 160, 160);
 }

@@ -9,6 +9,10 @@ import { useHistory } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector } from "react-redux";
+import Watchscreen from "./screens/WatchScreen/Watchscreen";
+import SearchScreen from "./screens/SearchScreen";
+import SubscriptionsScreen from "./screens/SubscriptionScreen/SubscriptionsScreen";
+import ChannelScreen from "./screens/ChannelScreen/ChannelScreen";
 
 const Layout = ({ children }) => {
   const [sidebar, toggleSidebar] = useState(false);
@@ -28,7 +32,7 @@ const Layout = ({ children }) => {
   );
 };
 
-function App() {
+const App = () => {
   const { accessToken, loading } = useSelector((state) => state.auth);
   const history = useHistory();
 
@@ -49,9 +53,24 @@ function App() {
       <Route path='/auth'>
         <LoginScreen />
       </Route>
-      <Route path='/search'>
+      <Route path='/search/:query'>
         <Layout>
-          <h1>Search Results</h1>
+          <SearchScreen />
+        </Layout>
+      </Route>
+      <Route path='/watch/:id'>
+        <Layout>
+          <Watchscreen />
+        </Layout>
+      </Route>
+      <Route path='/feed/subscriptions'>
+        <Layout>
+          <SubscriptionsScreen />
+        </Layout>
+      </Route>
+      <Route path='/channel/:channelId'>
+        <Layout>
+          <ChannelScreen />
         </Layout>
       </Route>
       <Route>
@@ -59,6 +78,6 @@ function App() {
       </Route>
     </Switch>
   );
-}
+};
 
 export default App;

@@ -20,6 +20,7 @@ const LoginScreen = () => {
       history.push("/");
     }
   }, [accessToken, history]);
+
   return (
     <div className='login'>
       <div className='login__container'>

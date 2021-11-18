@@ -17,13 +17,15 @@ export const login = () => async (dispatch) => {
     const provider = new firebase.auth.GoogleAuthProvider();
 
     provider.addScope("https://www.googleapis.com/auth/youtube.force-ssl");
+    // provider.addScope("https://www.googleapis.com/auth/youtube.readonly");
 
     const result = await auth.signInWithPopup(provider);
 
     const accessToken = result.credential.accessToken;
     const profile = {
-      name: result.additionalUserInfo.profile.name,
-      photoUrl: result.additionalUserInfo.profile.picture,
+      name: result.user.displayName,
+      photoUrl:
+        result.user.photoURL || result.additionalUserInfo.profile.picture,
     };
 
     sessionStorage.setItem("yt-access-token", accessToken);

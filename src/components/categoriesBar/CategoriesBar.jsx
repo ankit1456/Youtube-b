@@ -12,6 +12,8 @@ const keywords = [
   "use of API",
   "Redux",
   "Music",
+  "Movie",
+  "Standup Comedy",
   "Algorithm Art ",
   "Guitar",
   "Bengali Songs",
@@ -20,8 +22,7 @@ const keywords = [
   "Football",
   "Real Madrid",
   "Gatsby",
-  "Poor Coder",
-  "Shwetabh",
+  "Node Js",
 ];
 
 const CategoriesBar = () => {

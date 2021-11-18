@@ -4,11 +4,20 @@ import "./_header.scss";
 import { FaBars } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdNotifications, MdApps } from "react-icons/md";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Header = ({ handleToggleSidebar }) => {
   const user = useSelector((state) => state.auth.user);
+  const [input, setInput] = useState("");
+
+  const history = useHistory();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    history.push(`/search/${input}`);
+  };
   return (
     <div className='header'>
       <FaBars
@@ -17,22 +26,29 @@ const Header = ({ handleToggleSidebar }) => {
         size={23}
       />
 
-      <div className='header__logo'>
-        <img
-          style={{ height: "30px", objectFit: "contain" }}
-          src='https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png'
-          alt=''
-        />
-        {/* <p>
+      <Link to='/'>
+        <div className='header__logo'>
+          <img
+            style={{ height: "30px", objectFit: "contain" }}
+            src='https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png'
+            alt=''
+          />
+          {/* <p>
           <span>You</span>
           <span>Tube</span>
         </p>
 
         <p className='india'>IN</p> */}
-      </div>
+        </div>
+      </Link>
 
-      <form className='header__form'>
-        <input type='text' placeholder='Search' />
+      <form className='header__form' onSubmit={handleSubmit}>
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          type='text'
+          placeholder='Search'
+        />
         <button type='submit'>
           <AiOutlineSearch size={22} />
         </button>

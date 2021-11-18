@@ -12,6 +12,7 @@ import SkeletonVideo from "./../../components/Skeleton";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getPopularVideos());
   }, [dispatch]);
@@ -36,19 +37,19 @@ const HomeScreen = () => {
         dataLength={videos.length}
         next={fetchData}
         hasMore={true}
-        loader={
-          <div className='spinner-border text-danger d-block mx-auto'></div>
-        }
         className='row'
+        loader={
+          <div className='mx-auto mb-2 text-white spinner-border d-block'></div>
+        }
       >
         {!loading
           ? videos.map((video) => (
-              <Col lg={3} md={4} key={video.id}>
-                <Video video={video} />
+              <Col lg={3} md={4} id={video.id}>
+                <Video video={video} key={video.id} />
               </Col>
             ))
-          : [...Array(20)].map(() => (
-              <Col lg={3} md={4}>
+          : [...Array(20)].map((x, i) => (
+              <Col lg={3} md={4} key={i}>
                 <SkeletonVideo />
               </Col>
             ))}

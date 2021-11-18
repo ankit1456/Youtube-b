@@ -44,10 +44,9 @@ export const getPopularVideos = () => async (dispatch, getState) => {
       },
     });
   } catch (error) {
-    console.log(error.message);
     dispatch({
       type: HOME_VIDEOS_FAIL,
-      payload: error.message,
+      payload: error.response.data,
     });
   }
 };
@@ -60,9 +59,9 @@ export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
     const { data } = await request("/search", {
       params: {
         part: "snippet",
-
         maxResults: 20,
         pageToken: getState().homeVideos.nextPageToken,
+        regionCode: "IN",
         q: keyword,
         type: "video",
       },
@@ -77,10 +76,9 @@ export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
       },
     });
   } catch (error) {
-    console.log(error.message);
     dispatch({
       type: HOME_VIDEOS_FAIL,
-      payload: error.message,
+      payload: error.response.data,
     });
   }
 };
@@ -102,10 +100,9 @@ export const getVideoById = (id) => async (dispatch) => {
       payload: data.items[0],
     });
   } catch (error) {
-    console.log(error.message);
     dispatch({
       type: SELECTED_VIDEO_FAIL,
-      payload: error.message,
+      payload: error.response.data,
     });
   }
 };
@@ -120,6 +117,7 @@ export const getRelatedVideos = (id) => async (dispatch) => {
       params: {
         part: "snippet",
         relatedToVideoId: id,
+        regionCode: "IN",
         maxResults: 15,
         type: "video",
       },
@@ -129,10 +127,9 @@ export const getRelatedVideos = (id) => async (dispatch) => {
       payload: data.items,
     });
   } catch (error) {
-    console.log(error.response.data.message);
     dispatch({
       type: RELATED_VIDEO_FAIL,
-      payload: error.response.data.message,
+      payload: error.response.data,
     });
   }
 };
@@ -145,7 +142,6 @@ export const getVideosBySearch = (keyword) => async (dispatch) => {
     const { data } = await request("/search", {
       params: {
         part: "snippet",
-
         maxResults: 20,
         q: keyword,
         type: "video,channel",
@@ -157,10 +153,9 @@ export const getVideosBySearch = (keyword) => async (dispatch) => {
       payload: data.items,
     });
   } catch (error) {
-    console.log(error.message);
     dispatch({
       type: SEARCHED_VIDEO_FAIL,
-      payload: error.message,
+      payload: error.response.data,
     });
   }
 };
@@ -173,7 +168,6 @@ export const getSubscribedChannels = () => async (dispatch, getState) => {
     const { data } = await request("/subscriptions", {
       params: {
         part: "snippet,contentDetails",
-
         mine: true,
       },
       headers: {
@@ -185,7 +179,6 @@ export const getSubscribedChannels = () => async (dispatch, getState) => {
       payload: data.items,
     });
   } catch (error) {
-    console.log(error.response.data);
     dispatch({
       type: SUBSCRIPTIONS_CHANNEL_FAIL,
       payload: error.response.data,
@@ -223,7 +216,6 @@ export const getVideosByChannel = (id) => async (dispatch) => {
       payload: data.items,
     });
   } catch (error) {
-    console.log(error.response.data.message);
     dispatch({
       type: CHANNEL_DETAILS_FAIL,
       payload: error.response.data,

@@ -11,8 +11,10 @@ import {
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/auth.action";
+import { Link, useHistory } from "react-router-dom";
 
 const Sidebar = ({ sidebar, handleToggleSidebar }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const handleLogout = (e) => {
     e.preventDefault();
@@ -23,14 +25,16 @@ const Sidebar = ({ sidebar, handleToggleSidebar }) => {
       onClick={() => handleToggleSidebar(false)}
       className={sidebar ? "sidebar open" : "sidebar"}
     >
-      <li>
+      <li onClick={() => history.push("/")}>
         <MdHome size={23} />
         <span>Home</span>
       </li>
-      <li>
-        <MdSubscriptions size={23} />
-        <span>Subscriptions</span>
-      </li>
+      <Link to='/feed/subscriptions'>
+        <li>
+          <MdSubscriptions size={23} />
+          <span>Subscriptions</span>
+        </li>
+      </Link>
       <li>
         <MdThumbUp size={23} />
         <span>Liked Video</span>
@@ -48,9 +52,9 @@ const Sidebar = ({ sidebar, handleToggleSidebar }) => {
         <span>I don't Know</span>
       </li>
       <hr />
-      <li>
+      <li onClick={handleLogout}>
         <MdExitToApp size={23} />
-        <span onClick={handleLogout}>Log Out</span>
+        <span>Log Out</span>
       </li>
 
       <hr />
