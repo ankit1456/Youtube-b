@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import "./_videoMetaData.scss";
-import { AiFillEye } from "react-icons/ai";
 import numeral from "numeral";
 import moment from "moment";
 import { MdThumbUp, MdThumbDown } from "react-icons/md";
 import ShowMoreText from "react-show-more-text";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import HelmetCustom from "./../HelmetCustom";
 import {
   getChannelDetails,
   checkSubscriptionStatus,
 } from "./../../redux/actions/channel.action";
 
 const VideoMetaData = ({ video, videoId }) => {
+  const history = useHistory();
   const { channelId, channelTitle, description, title, publishedAt } =
     video?.snippet;
   const { viewCount, likeCount, dislikeCount } = video?.statistics;
@@ -32,6 +34,7 @@ const VideoMetaData = ({ video, videoId }) => {
 
   return (
     <div className='py-2 videoMetaData'>
+      <HelmetCustom title={title} description={description} />
       <div className='videoMetaData__top'>
         <h5>{title} </h5>
         <div className='py-1 d-flex justify-content-between align-items-center'>
@@ -53,12 +56,19 @@ const VideoMetaData = ({ video, videoId }) => {
       <div className='py-3 my-2 videoMetaData__channel d-flex justify-content-between align-items-center'>
         <div className='d-flex justify-content-between video__metaData'>
           <img
+            style={{ cursor: "pointer" }}
+            onClick={() => history.push(`/channel/${channelId}`)}
             src={channelSnippet?.thumbnails?.default?.url}
             alt=''
             className='rounded-circle'
           />
           <div className='d-flex flex-column'>
-            <span>{channelTitle}</span>
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => history.push(`/channel/${channelId}`)}
+            >
+              {channelTitle}
+            </span>
 
             <span>
               {" "}
